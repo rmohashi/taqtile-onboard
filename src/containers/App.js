@@ -4,7 +4,7 @@ import {
   Route,
   Link
 } from 'react-router-dom'
-import Login from './Login/Login'
+import Login from './Login'
 import './App.css';
 
 class App extends Component {

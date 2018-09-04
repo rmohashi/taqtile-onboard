@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import './Login.css';
 
-class Login extends Component {
+class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,7 +21,7 @@ class Login extends Component {
     });
   }
 
-  buttonClickedHandler = () => {
+  checkValues = () => {
     const emailPattern = /\S+@\S+/;
     const emailError = emailPattern.test(this.state.email) ? false : true;
     const passwordError = this.state.password && this.state.password.length > 3 ? false : true;
@@ -33,6 +32,10 @@ class Login extends Component {
     })
   }
 
+  buttonClickedHandler = () => {
+    this.checkValues()
+  }
+
   render() {
     return (
       <div className="Login">
@@ -41,7 +44,7 @@ class Login extends Component {
           id="email"
           label="E-mail"
           placeholder="E-mail"
-          helperText={this.state.emailError? 'Inválido' : null}
+          helperText={this.state.emailError ? 'Inválido' : null}
           margin="normal"
           className="inputField"
           onChange={this.inputChangedHandler}
@@ -64,7 +67,7 @@ class Login extends Component {
           this.state.isValid ?
           <CircularProgress /> :
           <Button variant="contained" color="primary" onClick={this.buttonClickedHandler}>
-            Enviar
+              Enviar
           </Button>
         }
       </div>
@@ -72,4 +75,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default LoginForm;
