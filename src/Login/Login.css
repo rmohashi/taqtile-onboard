@@ -1,0 +1,26 @@
+.Login {
+  margin: 10% auto;
+  width: 50%;
+  border: 1px solid #eee;
+  box-shadow: 2px 2px 5px #eee;
+  padding: 5px 10px 10px 20px;
+}
+
+.Login .inputField {
+  width: 60%;
+}
+
+.Login p {
+  text-align: right;
+  margin-right: 20%;
+  font-size: 10px;
+}
+
+.Login p a {
+  text-decoration: none;
+}
+
+.Login button {
+  margin: 20px 0;
+  width: 60%;
+}
