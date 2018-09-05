@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 import Button from '../components/Button';
 import Input from '../components/Input';
+import Header from '../components/Header';
 
 import './Login.css';
 
@@ -68,6 +69,9 @@ class Login extends Component {
     }
     return (
       <div className="Login">
+        <Header>
+          Login
+        </Header>
         <Input
           error={this.state.emailError}
           id="email"
