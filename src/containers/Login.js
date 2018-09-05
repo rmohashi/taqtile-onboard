@@ -5,6 +5,8 @@ import Button from '../components/Button';
 import Input from '../components/Input';
 import Header from '../components/Header';
 
+import { login } from '../data/Authenticator';
+
 import './Login.css';
 
 class Login extends Component {
@@ -40,26 +42,7 @@ class Login extends Component {
 
   buttonClickedHandler = () => {
     if (this.checkValues()) {
-      const axios = require('axios');
-      const endpoint = "https://tq-template-server-sample.herokuapp.com/authenticate";
-      const payload = {
-        email: this.state.email,
-        password: this.state.password,
-        rememberMe: false,
-      }
-      axios.post(endpoint, payload)
-        .then((response) => {
-          localStorage.setItem('username', response.data.data.user.name);
-          this.setState({
-            redirectToHome: true,
-          });
-        })
-        .catch((error) => {
-          alert(error.response.data.errors[0].message);
-          this.setState({
-            isValidating: false,
-          });
-        });
+      login(this);
     }
   }
 
