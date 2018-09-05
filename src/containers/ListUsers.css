@@ -6,3 +6,7 @@
   border-radius: 5px;
   margin: 5% auto;
 }
+
+.ListUsers button {
+  margin-top: 10px;
+}

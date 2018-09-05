@@ -86,7 +86,7 @@ class Login extends Component {
           type="password"
           changed={this.inputChangedHandler}
         />
-        <Button inProgress={this.state.isValidating} clicked={this.buttonClickedHandler}>
+        <Button color="primary" inProgress={this.state.isValidating} clicked={this.buttonClickedHandler}>
           Entrar
         </Button>
       </div>
