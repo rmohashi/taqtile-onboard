@@ -1,24 +1,19 @@
 const axios = require('axios');
 
-export const login = (component) => {
+export const login = (email, password) => {
   const endpoint = "https://tq-template-server-sample.herokuapp.com/authenticate";
   const payload = {
-    email: component.state.email,
-    password: component.state.password,
+    email: email,
+    password: password,
     rememberMe: false,
   }
-  axios.post(endpoint, payload)
+  return axios.post(endpoint, payload)
     .then((response) => {
-      localStorage.setItem('username', response.data.data.user.name);
-      localStorage.setItem('token', response.data.data.token);
-      component.setState({
-        redirectToHome: true,
-      });
+      return {
+        username: response.data.data.user.name,
+      };
     })
     .catch((error) => {
-      alert(error.response.data.errors[0].message);
-      component.setState({
-        isValidating: false,
-      });
+      throw new Error(error.response.data.errors[0].message);
     });
 }
