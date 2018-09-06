@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Title from '../components/Title';
 import Button from '../components/Button';
 
+import { Redirect } from 'react-router-dom';
 import { getUsers } from '../data/UserFetcher';
 
 import './ListUsers.css';
@@ -33,9 +34,16 @@ class ListUsers extends Component {
           page: data.page,
           lastPage: data.lastPage,
           isLoading: false,
+          userId: null,
         });
       })
       .catch(error => alert(error.message));
+  }
+
+  userClickedHandler = (id) => {
+    this.setState({
+      userId: id,
+    });
   }
 
   nextButtonClickHandler = () => {
@@ -44,6 +52,12 @@ class ListUsers extends Component {
   }
 
   render() {
+    if (this.state.userId) {
+      return (<Redirect to={"/user/details/" + this.state.userId} />)
+    }
+    const rowStyle = {
+      cursor: "pointer",
+    }
     return (
       <div className="ListUsers">
         <Title>
@@ -60,7 +74,7 @@ class ListUsers extends Component {
             {
               this.state.users.map(user => {
                 return (
-                  <TableRow key={user.id}>
+                  <TableRow style={rowStyle} key={user.id} onClick={() => this.userClickedHandler(user.id)}>
                     <TableCell component="th" scope="row">
                       {user.name}
                     </TableCell>
