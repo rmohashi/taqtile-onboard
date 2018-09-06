@@ -26,3 +26,21 @@ export const getUsers = (page) => {
       throw new Error(error.message);
     });
 }
+
+export const getUser = (id) => {
+  const options = {
+    url: `/users/${id}`,
+    method: 'GET',
+  }
+  return request(options)
+    .then((response) => {
+      return {
+        name: response.data.name,
+        email: response.data.email,
+        role: response.data.role,
+      };
+    })
+    .catch((error) => {
+      throw new Error(error.message);
+    });
+}
