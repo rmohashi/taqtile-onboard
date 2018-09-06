@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 
-import Header from '../components/Header';
+import Title from '../components/Title';
 import Button from '../components/Button';
 
 import { getUsers } from '../data/UserFetcher';
@@ -18,27 +17,38 @@ class ListUsers extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: localStorage.getItem('username'),
       page: 1,
       lastPage: false,
       users: [],
+      isLoading: true,
     }
-    getUsers(this);
+    this.getUsers(1);
+  }
+
+  getUsers = (page) => {
+    getUsers(page)
+      .then(data => {
+        this.setState({
+          users: this.state.users.concat(data.users),
+          page: data.page,
+          lastPage: data.lastPage,
+          isLoading: false,
+        });
+      })
+      .catch(error => alert(error.message));
   }
 
   nextButtonClickHandler = () => {
-    getUsers(this);
+    this.setState({ isLoading: true });
+    this.getUsers(this.state.page);
   }
 
   render() {
-    if (!this.state.username) {
-      return <Redirect to="/login" />
-    }
     return (
       <div className="ListUsers">
-        <Header>
+        <Title>
           Usuários
-        </Header>
+        </Title>
         <Table>
           <TableHead>
             <TableRow>
@@ -65,8 +75,8 @@ class ListUsers extends Component {
           this.state.lastPage ?
             null :
             <Button
-              color="default"
-              inProgress={false}
+              color="primary"
+              inProgress={this.state.isLoading}
               clicked={this.nextButtonClickHandler}
             >
               Carregar Mais
