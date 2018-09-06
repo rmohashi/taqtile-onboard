@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import Login from './Login';
 import Home from './Home';
+import ListUsers from './ListUsers';
 import './App.css';
 
 class App extends Component {
@@ -26,6 +27,10 @@ class App extends Component {
           <Route
             exact path="/login"
             component={Login}
+          />
+          <Route
+            exact path="/list-users"
+            component={ListUsers}
           />
         </div>
       </Router>
