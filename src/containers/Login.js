@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 import Button from '../components/Button';
 import Input from '../components/Input';
-import Header from '../components/Header';
+import Title from '../components/Title';
 
 import { login } from '../data/Authenticator';
 
@@ -40,21 +40,33 @@ class Login extends Component {
     return !emailError && !passwordError;
   }
 
+  login = () => {
+    login(this.state.email, this.state.password)
+      .then(data => {
+        localStorage.setItem('username', data.username);
+        this.setState({redirectToHome: true});
+      })
+      .catch(error => {
+        alert(error.message);
+        this.setState({isValidating: false});
+      });
+  }
+
   buttonClickedHandler = () => {
     if (this.checkValues()) {
-      login(this);
+      this.login()
     }
   }
 
   render() {
     if (this.state.redirectToHome) {
-      return <Redirect to="/" />
+      return <Redirect to="/user" />
     }
     return (
       <div className="Login">
-        <Header>
+        <Title>
           Login
-        </Header>
+        </Title>
         <Input
           error={this.state.emailError}
           id="email"
