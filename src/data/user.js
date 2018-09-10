@@ -89,3 +89,18 @@ export const editUser = (id, name, email, role) => {
       throw new Error(error.message);
     });
 }
+
+export const deleteUser = (id) => {
+  const options = {
+    url: `/users/${id}`,
+    method: 'DELETE',
+  }
+
+  return request(options)
+    .then(response => {
+      return response;
+    })
+    .catch(error => {
+      throw new Error(error.message);
+    })
+}
