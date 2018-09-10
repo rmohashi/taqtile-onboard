@@ -1,0 +1,19 @@
+.CreateUser {
+  width: 60%;
+  padding: 20px;
+  border: 1px solid #eee;
+  box-shadow: 0 5px 10px #ccc;
+  border-radius: 5px;
+  margin: 5% auto;
+  text-align: left;
+}
+
+.CreateUser .inputField {
+  margin-left: 10%;
+  width: 80%;
+}
+
+.CreateUser button {
+  margin: 20px 10%;
+  width: 80%;
+}

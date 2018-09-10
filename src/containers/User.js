@@ -8,6 +8,7 @@ import {
 import Home from './Home';
 import ListUsers from './ListUsers';
 import UserDetail from './UserDetail';
+import CreateUser from './CreateUser';
 
 import TopBar from '../components/TopBar'
 
@@ -33,6 +34,10 @@ class User extends Component {
           <Route
             path="/user/details/:id"
             component={UserDetail}
+          />
+          <Route
+            path="/user/new"
+            component={CreateUser}
           />
         </div>
       </Router>
