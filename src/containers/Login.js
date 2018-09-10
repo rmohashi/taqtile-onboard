@@ -18,7 +18,7 @@ class Login extends Component {
       password: '',
       passwordError: false,
       isValidating: false,
-      redirectToHome: localStorage.getItem('username') ? true : false,
+      redirectToHome: localStorage.getItem('accessToken') ? true : false,
     }
   }
 
@@ -44,6 +44,7 @@ class Login extends Component {
     login(this.state.email, this.state.password)
       .then(data => {
         localStorage.setItem('username', data.username);
+        localStorage.setItem('accessToken', data.accessToken);
         this.setState({redirectToHome: true});
       })
       .catch(error => {
