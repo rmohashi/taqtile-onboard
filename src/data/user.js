@@ -44,3 +44,48 @@ export const getUser = (id) => {
       throw new Error(error.message);
     });
 }
+
+export const createUser = (name, email, password, role) => {
+  const options = {
+    url: '/users',
+    method: 'POST',
+    data: {
+      name: name,
+      password: password,
+      email: email,
+      role: role,
+    }
+  }
+
+  return request(options)
+    .then(response => {
+      return {
+        data: response.data,
+      }
+    })
+    .catch(error => {
+      throw new Error(error.message);
+    });
+}
+
+export const editUser = (id, name, email, role) => {
+  const options = {
+    url: `/users/${id}`,
+    method: 'PUT',
+    data: {
+      name: name,
+      email: email,
+      role: role,
+    }
+  }
+
+  return request(options)
+    .then(response => {
+      return {
+        data: response.data,
+      }
+    })
+    .catch(error => {
+      throw new Error(error.message);
+    });
+}

@@ -5,7 +5,7 @@ import Button from '../components/Button';
 import Input from '../components/Input';
 import Title from '../components/Title';
 
-import { login } from '../data/Authenticator';
+import { login } from '../data/authentication';
 
 import './Login.css';
 
