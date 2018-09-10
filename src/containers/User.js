@@ -7,6 +7,8 @@ import {
 
 import Home from './Home';
 import ListUsers from './ListUsers';
+import UserDetail from './UserDetail';
+
 import TopBar from '../components/TopBar'
 
 class User extends Component {
@@ -17,17 +19,21 @@ class User extends Component {
     return (
       <Router>
         <div className="User">
-            <TopBar>
-              Taqtile Onboard
-            </TopBar>
-            <Route
-              exact path="/user"
-              component={Home}
-            />
-            <Route
-              path="/user/list-users"
-              component={ListUsers}
-            />
+          <TopBar>
+            Taqtile Onboard
+          </TopBar>
+          <Route
+            exact path="/user"
+            component={Home}
+          />
+          <Route
+            path="/user/list-users"
+            component={ListUsers}
+          />
+          <Route
+            path="/user/details/:id"
+            component={UserDetail}
+          />
         </div>
       </Router>
     );

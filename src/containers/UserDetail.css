@@ -1,0 +1,12 @@
+.UserDetail {
+  width: 60%;
+  padding: 20px;
+  border: 1px solid #eee;
+  box-shadow: 0 5px 10px #ccc;
+  border-radius: 5px;
+  margin: 5% auto;
+}
+
+.UserDetail .inputField {
+  width: 80%;
+}

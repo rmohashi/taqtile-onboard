@@ -38,12 +38,19 @@ class ListUsers extends Component {
       .catch(error => alert(error.message));
   }
 
+  userClickedHandler = (id) => {
+    this.props.history.push(`/user/details/${id}`);
+  }
+
   nextButtonClickHandler = () => {
     this.setState({ isLoading: true });
     this.getUsers(this.state.page);
   }
 
   render() {
+    const rowStyle = {
+      cursor: "pointer",
+    }
     return (
       <div className="ListUsers">
         <Title>
@@ -60,7 +67,7 @@ class ListUsers extends Component {
             {
               this.state.users.map(user => {
                 return (
-                  <TableRow key={user.id}>
+                  <TableRow style={rowStyle} key={user.id} onClick={() => this.userClickedHandler(user.id)}>
                     <TableCell component="th" scope="row">
                       {user.name}
                     </TableCell>

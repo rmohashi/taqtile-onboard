@@ -13,6 +13,8 @@ const input = (props) => {
       className="inputField"
       type={props.type}
       onChange={props.changed}
+      disabled={props.disabled}
+      value={props.value}
     />
   );
 }
