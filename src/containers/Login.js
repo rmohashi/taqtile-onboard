@@ -3,7 +3,9 @@ import { Redirect } from 'react-router-dom';
 
 import Button from '../components/Button';
 import Input from '../components/Input';
-import Header from '../components/Header';
+import Title from '../components/Title';
+
+import { login } from '../data/Authenticator';
 
 import './Login.css';
 
@@ -16,7 +18,7 @@ class Login extends Component {
       password: '',
       passwordError: false,
       isValidating: false,
-      redirectToHome: localStorage.getItem('username') ? true : false,
+      redirectToHome: localStorage.getItem('accessToken') ? true : false,
     }
   }
 
@@ -38,40 +40,34 @@ class Login extends Component {
     return !emailError && !passwordError;
   }
 
+  login = () => {
+    login(this.state.email, this.state.password)
+      .then(data => {
+        localStorage.setItem('username', data.username);
+        localStorage.setItem('accessToken', data.accessToken);
+        this.setState({redirectToHome: true});
+      })
+      .catch(error => {
+        alert(error.message);
+        this.setState({isValidating: false});
+      });
+  }
+
   buttonClickedHandler = () => {
     if (this.checkValues()) {
-      const axios = require('axios');
-      const endpoint = "https://tq-template-server-sample.herokuapp.com/authenticate";
-      const payload = {
-        email: this.state.email,
-        password: this.state.password,
-        rememberMe: false,
-      }
-      axios.post(endpoint, payload)
-        .then((response) => {
-          localStorage.setItem('username', response.data.data.user.name);
-          this.setState({
-            redirectToHome: true,
-          });
-        })
-        .catch((error) => {
-          alert(error.response.data.errors[0].message);
-          this.setState({
-            isValidating: false,
-          });
-        });
+      this.login()
     }
   }
 
   render() {
     if (this.state.redirectToHome) {
-      return <Redirect to="/" />
+      return <Redirect to="/user" />
     }
     return (
       <div className="Login">
-        <Header>
+        <Title>
           Login
-        </Header>
+        </Title>
         <Input
           error={this.state.emailError}
           id="email"

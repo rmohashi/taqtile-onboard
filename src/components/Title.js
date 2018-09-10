@@ -3,7 +3,7 @@ import React from 'react';
 const header = (props) => {
   return (
     <div>
-      <h1 style={headerStyle}>{props.children}</h1>
+      <h2 style={headerStyle}>{props.children}</h2>
       <hr style={lineStyle} />
     </div>
   );
