@@ -72,8 +72,8 @@ class ListUsers extends Component {
           </TableBody>
         </Table>
         {
-          this.state.lastPage ?
-            null :
+          !this.state.lastPage &&
+          (
             <Button
               color="primary"
               inProgress={this.state.isLoading}
@@ -81,6 +81,7 @@ class ListUsers extends Component {
             >
               Carregar Mais
             </Button>
+          )
         }
       </div>
     );
