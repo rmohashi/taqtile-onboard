@@ -1,42 +1,28 @@
-const axios = require('axios');
+import request from './request';
 
-axios.interceptors.request.use(config => {
-  config.headers = {
-    Authorization: localStorage.getItem('accessToken'),
-  }
-  return config;
-}, error => {
-  return Promise.reject(error);
-});
-
-axios.interceptors.response.use(response => {
-  localStorage.setItem('accessToken', response.headers.authorization);
-  return response;
-}, error => {
-  return Promise.reject(error);
-});
+const USERS_PER_BUTTON_BLICK = 5;
 
 export const getUsers = (page) => {
-  const usersPerButtonClick = 5;
-  const endpoint = "https://tq-template-server-sample.herokuapp.com/users";
-  const configs = {
+  const options = {
+    url: '/users',
+    method: 'GET',
     params: {
       pagination: {
-        "page": page,
-        "window": usersPerButtonClick,
+        page: page,
+        window: USERS_PER_BUTTON_BLICK,
       },
     }
   }
-  return axios
-    .get(endpoint, configs)
+
+  return request(options)
     .then((response) => {
       return {
         page: page + 1,
-        users: response.data.data,
-        lastPage: response.data.pagination.page === response.data.pagination.totalPages - 1,
+        users: response.data,
+        lastPage: response.pagination.page === response.pagination.totalPages - 1,
       };
     })
     .catch((error) => {
-      throw new Error(error.response.data.errors[0].message);
+      throw new Error(error.message);
     });
 }
