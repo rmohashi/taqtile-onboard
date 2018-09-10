@@ -12,6 +12,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import EditIcon from "@material-ui/icons/Edit";
+import PersonIcon from "@material-ui/icons/Person";
+import IconButton from "@material-ui/core/IconButton";
 
 class ListUsers extends Component {
   constructor(props) {
@@ -38,8 +41,12 @@ class ListUsers extends Component {
       .catch(error => alert(error.message));
   }
 
-  userClickedHandler = (id) => {
+  detailsClickedHandler = (id) => {
     this.props.history.push(`/user/details/${id}`);
+  }
+
+  editClickedHandler = (id) => {
+    this.props.history.push(`/user/edit/${id}`);
   }
 
   nextButtonClickHandler = () => {
@@ -61,17 +68,26 @@ class ListUsers extends Component {
             <TableRow>
               <TableCell>Username</TableCell>
               <TableCell>Role</TableCell>
+              <TableCell>Ações</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {
               this.state.users.map(user => {
                 return (
-                  <TableRow style={rowStyle} key={user.id} onClick={() => this.userClickedHandler(user.id)}>
+                  <TableRow style={rowStyle} key={user.id}>
                     <TableCell component="th" scope="row">
                       {user.name}
                     </TableCell>
                     <TableCell>{user.role}</TableCell>
+                    <TableCell>
+                      <IconButton aria-label="Detail">
+                        <PersonIcon onClick={this.detailsClickedHandler.bind(this, user.id)} />
+                      </IconButton>
+                      <IconButton aria-label="Edit">
+                        <EditIcon onClick={this.editClickedHandler.bind(this, user.id)}/>
+                      </IconButton>
+                    </TableCell>
                   </TableRow>
                 );
               })

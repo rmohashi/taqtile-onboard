@@ -4,7 +4,14 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 const button = (props) => {
   return (
-    <Button variant="contained" disabled={props.inProgress} color={props.color} onClick={props.clicked}>
+    <Button
+      className={props.className}
+      variant="contained"
+      size={props.size}
+      disabled={props.inProgress}
+      color={props.color}
+      onClick={props.clicked}
+    >
       {
         props.inProgress ?
           <CircularProgress size="20px" /> :

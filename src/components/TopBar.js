@@ -33,6 +33,9 @@ const topBar = (props) => {
           <Link style={linkStyle} to="/user/list-users">Listagem</Link>
         </NavButton>
         <NavButton color="inherit">
+          <Link style={linkStyle} to="/user/new">Adicionar</Link>
+        </NavButton>
+        <NavButton color="inherit">
           <Link style={linkStyle} to="/user">Home</Link>
         </NavButton>
       </Toolbar>
