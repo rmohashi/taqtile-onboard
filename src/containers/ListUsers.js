@@ -51,27 +51,33 @@ class ListUsers extends Component {
   }
 
   detailsClickedHandler = (id) => {
-    this.props.history.push(`/user/details/${id}`);
+    return () => {
+      this.props.history.push(`/user/details/${id}`);
+    }
   }
 
   editClickedHandler = (id) => {
-    this.props.history.push(`/user/edit/${id}`);
+    return () => {
+      this.props.history.push(`/user/edit/${id}`);
+    }
   }
 
   deleteClickedHandler = (id) => {
-    deleteUser(id)
-      .then(data => {
-        this.props.setModal(
-          'Sucesso',
-          `Usuário ${data.data.name} removido com sucesso`
-        )
-        this.setState({
-          users: this.state.users.filter(user => user.id !== id),
-        });
-      })
-      .catch(error => {
-        this.props.setModal('Erro', error.message)
-      })
+    return () => {
+      deleteUser(id)
+        .then(data => {
+          this.props.setModal(
+            'Sucesso',
+            `Usuário ${data.data.name} removido com sucesso`
+          )
+          this.setState({
+            users: this.state.users.filter(user => user.id !== id),
+          });
+        })
+        .catch(error => {
+          this.props.setModal('Erro', error.message)
+        })
+      }
   }
 
   pageScrollHandler = () => {
@@ -109,13 +115,13 @@ class ListUsers extends Component {
                     <TableCell>{user.role}</TableCell>
                     <TableCell>
                       <IconButton aria-label="Detail">
-                        <PersonIcon onClick={this.detailsClickedHandler.bind(this, user.id)} />
+                        <PersonIcon onClick={this.detailsClickedHandler(user.id)} />
                       </IconButton>
                       <IconButton aria-label="Edit">
-                        <EditIcon onClick={this.editClickedHandler.bind(this, user.id)}/>
+                        <EditIcon onClick={this.editClickedHandler(user.id)}/>
                       </IconButton>
                       <IconButton aria-label="Edit">
-                        <DeleteIcon onClick={this.deleteClickedHandler.bind(this, user.id)} />
+                        <DeleteIcon onClick={this.deleteClickedHandler(user.id)} />
                       </IconButton>
                     </TableCell>
                   </TableRow>
