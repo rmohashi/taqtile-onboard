@@ -26,7 +26,7 @@ const request = function (options) {
   }
 
   const onError = error => {
-    throw new Error(error.response.data.errors[0].message);
+    throw new Error(error.response.data.errors[0].original);
   }
 
   return client(options).then(onSuccess).catch(onError);
