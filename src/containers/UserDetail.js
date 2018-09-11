@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Grid from '@material-ui/core/Grid';
 import { getUser } from '../data/user';
 import Title from '../components/Title';
 import Input from '../components/Input';
