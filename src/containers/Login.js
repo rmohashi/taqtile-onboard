@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 
 import Button from '../components/Button';
 import Input from '../components/Input';
@@ -18,7 +17,12 @@ class Login extends Component {
       password: '',
       passwordError: false,
       isValidating: false,
-      redirectToHome: localStorage.getItem('accessToken') ? true : false,
+    }
+  }
+
+  componentDidMount() {
+    if (localStorage.getItem('accessToken')) {
+      this.props.history.push('/user');
     }
   }
 
@@ -45,7 +49,7 @@ class Login extends Component {
       .then(data => {
         localStorage.setItem('username', data.username);
         localStorage.setItem('accessToken', data.accessToken);
-        this.setState({redirectToHome: true});
+        this.props.history.push(`/user`);
       })
       .catch(error => {
         this.props.setModal('Error', error.message);
@@ -61,9 +65,6 @@ class Login extends Component {
   }
 
   render() {
-    if (this.state.redirectToHome) {
-      return <Redirect to="/user" />
-    }
     return (
       <div className="Login">
         <Title>

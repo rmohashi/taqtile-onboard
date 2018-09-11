@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import {
   BrowserRouter as Router,
   Route
@@ -14,10 +13,13 @@ import EditUser from './EditUser';
 import TopBar from '../components/TopBar';
 
 class User extends Component {
-  render() {
+  componentWillMount() {
     if (!localStorage.getItem('accessToken')) {
-      return <Redirect to="/" />
+      this.props.history.push('/');
     }
+  }
+
+  render() {
     return (
       <Router>
         <div className="User">
