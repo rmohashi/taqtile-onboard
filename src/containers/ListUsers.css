@@ -10,3 +10,7 @@
 .ListUsers button {
   margin-top: 10px;
 }
+
+.ListUsers table {
+  margin-bottom: 20px;
+}

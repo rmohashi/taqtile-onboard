@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import Title from '../components/Title';
-import Button from '../components/Button';
 
 import { getUsers, deleteUser } from '../data/user';
 
@@ -16,6 +15,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import PersonIcon from "@material-ui/icons/Person";
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from "@material-ui/core/IconButton";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class ListUsers extends Component {
   constructor(props) {
@@ -27,6 +27,14 @@ class ListUsers extends Component {
       isLoading: true,
     }
     this.getUsers(1);
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.pageScrollHandler, false);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.pageScrollHandler, false);
   }
 
   getUsers = (page) => {
@@ -53,19 +61,21 @@ class ListUsers extends Component {
   deleteClickedHandler = (id) => {
     deleteUser(id)
       .then(data => {
-        alert(`Usuário ${data.data.name} removido com sucesso.`);
+        alert(`Usuário ${data.data.name} removido com sucesso` )
         this.setState({
-          users: this.state.users.filter(user => user.id != id),
-        });
+          users: this.state.users.filter(user => user.id !== id),
+        })
       })
       .catch(error => {
         alert(error.message);
       })
   }
 
-  nextButtonClickHandler = () => {
-    this.setState({ isLoading: true });
-    this.getUsers(this.state.page);
+  pageScrollHandler = () => {
+    if (!this.state.lastPage && !this.state.isLoading) {
+      this.setState({ isLoading: true });
+      this.getUsers(this.state.page);
+    }
   }
 
   render() {
@@ -112,15 +122,9 @@ class ListUsers extends Component {
           </TableBody>
         </Table>
         {
-          !this.state.lastPage &&
+          this.state.isLoading &&
           (
-            <Button
-              color="primary"
-              inProgress={this.state.isLoading}
-              clicked={this.nextButtonClickHandler}
-            >
-              Carregar Mais
-            </Button>
+            <CircularProgress />
           )
         }
       </div>
