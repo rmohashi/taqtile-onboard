@@ -54,17 +54,15 @@ class CreateUser extends Component {
   buttonClickedHandler = () => {
     if (this.checkValues()) {
       createUser(this.state.name, this.state.email, this.state.password, this.state.role)
-        .then(response => {
-          alert("Usuário criado com sucesso!");
+        .then(data => {
+          this.props.setModal('Sucesso', `Usuário ${data.data.name} criado com sucesso!`);
           this.props.history.push('/user/list-users');
         })
         .catch(error => {
-          alert(error.message);
+          this.props.setModal('Erro', error.message);
+          this.setState({ isValidating: false });
         });
     }
-    this.setState({
-      isValidating: false,
-    });
   }
 
   render() {

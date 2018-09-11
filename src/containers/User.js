@@ -11,7 +11,7 @@ import UserDetail from './UserDetail';
 import CreateUser from './CreateUser';
 import EditUser from './EditUser';
 
-import TopBar from '../components/TopBar'
+import TopBar from '../components/TopBar';
 
 class User extends Component {
   render() {
@@ -30,7 +30,7 @@ class User extends Component {
           />
           <Route
             path="/user/list-users"
-            component={ListUsers}
+            render={(props) => <ListUsers {...props} setModal={this.props.setModal} />}
           />
           <Route
             path="/user/details/:id"
@@ -38,11 +38,11 @@ class User extends Component {
           />
           <Route
             path="/user/new"
-            component={CreateUser}
+            render={(props) => <CreateUser {...props} setModal={this.props.setModal} />}
           />
           <Route
             path="/user/edit/:id"
-            component={EditUser}
+            render={(props) => <EditUser {...props} setModal={this.props.setModal} />}
           />
         </div>
       </Router>

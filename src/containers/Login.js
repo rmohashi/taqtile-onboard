@@ -48,7 +48,7 @@ class Login extends Component {
         this.setState({redirectToHome: true});
       })
       .catch(error => {
-        alert(error.message);
+        this.props.setModal('Error', error.message);
         this.setState({isValidating: false});
       });
   }
