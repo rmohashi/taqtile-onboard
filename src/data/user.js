@@ -1,6 +1,6 @@
 import request from './request';
 
-const USERS_PER_BUTTON_BLICK = 5;
+const USERS_PER_BUTTON_BLICK = 10;
 
 export const getUsers = (page) => {
   const options = {
