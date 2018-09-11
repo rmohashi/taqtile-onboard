@@ -61,11 +61,12 @@ class EditUser extends Component {
     return (!nameError && !emailError && !roleError);
   }
 
-  buttonClickedHandler = () => {
+  submitHandler = (event) => {
+    event.preventDefault();
     if (this.checkValues()) {
       editUser(this.state.id, this.state.name, this.state.email, this.state.role)
         .then(data => {
-          this.props.setModal('Sucesso', `Usuário ${data.data.name} editado com sucesso!`);
+          this.props.setModal('Sucesso', `Usuário ${data.name} editado com sucesso!`);
           this.props.history.push('/user/list-users');
         })
         .catch(error => {
@@ -94,7 +95,7 @@ class EditUser extends Component {
           isValidating={this.state.isValidating}
           inputChanged={this.inputChangedHandler}
           selectChanged={this.selectChangedHandler}
-          buttonClicked={this.buttonClickedHandler}
+          onSubmit={this.submitHandler}
           buttonText="Salvar"
         />
       </div>

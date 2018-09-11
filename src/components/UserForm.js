@@ -4,53 +4,53 @@ import Input from '../components/Input';
 import ValueSelect from '../components/ValueSelect';
 import Button from '../components/Button';
 
-const UserForm = (prop) => {
+const UserForm = (props) => {
   return (
-    <div className='UserForm'>
+    <form onSubmit={props.onSubmit} className='UserForm'>
       <Input
-        value={prop.name}
+        value={props.name}
         id="name"
         label="Nome"
         type="text"
-        error={prop.nameError}
-        changed={prop.inputChanged}
+        error={props.nameError}
+        changed={props.inputChanged}
       />
       <Input
-        value={prop.email}
+        value={props.email}
         id="email"
         label="E-mail"
         type="text"
-        error={prop.emailError}
-        changed={prop.inputChanged}
+        error={props.emailError}
+        changed={props.inputChanged}
       />
       {
-        !prop.edit &&
+        !props.edit &&
         (
           <Input
             id="password"
             label="Senha"
             type="password"
-            error={prop.passwordError}
-            changed={prop.inputChanged}
+            error={props.passwordError}
+            changed={props.inputChanged}
           />
         )
       }
       <ValueSelect
         label='Tipo'
-        changed={prop.selectChanged}
+        changed={props.selectChanged}
         name='role'
         id='select-role'
-        value={prop.role}
-        error={prop.roleError}
+        value={props.role}
+        error={props.roleError}
         items={[
           { value: 'user', text: 'User' },
           { value: 'admin', text: 'Admin' },
         ]}
       />
-      <Button color="primary" inProgress={prop.isValidating} clicked={prop.buttonClicked}>
-        {prop.buttonText}
+      <Button color="primary" inProgress={props.isValidating}>
+        {props.buttonText}
       </Button>
-    </div>
+    </form>
   );
 }
 

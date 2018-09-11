@@ -59,9 +59,7 @@ export const createUser = (name, email, password, role) => {
 
   return request(options)
     .then(response => {
-      return {
-        data: response.data,
-      }
+      return response.data;
     })
     .catch(error => {
       throw new Error(error.message);
@@ -81,9 +79,7 @@ export const editUser = (id, name, email, role) => {
 
   return request(options)
     .then(response => {
-      return {
-        data: response.data,
-      }
+      return response.data;
     })
     .catch(error => {
       throw new Error(error.message);

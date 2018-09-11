@@ -51,18 +51,19 @@ class CreateUser extends Component {
     return (!nameError && !emailError && !passwordError && !roleError);
   }
 
-  buttonClickedHandler = () => {
+  handleSubmit = (event) => {
+    event.preventDefault();
     if (this.checkValues()) {
       createUser(this.state.name, this.state.email, this.state.password, this.state.role)
         .then(data => {
-          this.props.setModal('Sucesso', `Usuário ${data.data.name} criado com sucesso!`);
+          this.props.setModal('Sucesso', `Usuário ${data.name} criado com sucesso!`);
           this.props.history.push('/user/list-users');
         })
         .catch(error => {
           this.props.setModal('Erro', error.message);
-          this.setState({ isValidating: false });
         });
     }
+    this.setState({ isValidating: false });
   }
 
   render() {
@@ -80,8 +81,8 @@ class CreateUser extends Component {
           isValidating={this.state.isValidating}
           inputChanged={this.inputChangedHandler}
           selectChanged={this.selectChangedHandler}
-          buttonClicked={this.buttonClickedHandler}
           buttonText="Criar"
+          onSubmit={this.handleSubmit}
         />
       </div>
     );

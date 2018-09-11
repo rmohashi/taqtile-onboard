@@ -11,6 +11,7 @@ const button = (props) => {
       disabled={props.inProgress}
       color={props.color}
       onClick={props.clicked}
+      type="submit"
     >
       {
         props.inProgress ?

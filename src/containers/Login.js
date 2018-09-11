@@ -53,7 +53,8 @@ class Login extends Component {
       });
   }
 
-  buttonClickedHandler = () => {
+  handleSubmit = (event) => {
+    event.preventDefault();
     if (this.checkValues()) {
       this.login()
     }
@@ -68,23 +69,25 @@ class Login extends Component {
         <Title>
           Login
         </Title>
-        <Input
-          error={this.state.emailError}
-          id="email"
-          label="E-mail"
-          type="text"
-          changed={this.inputChangedHandler}
-        />
-        <Input
-          error={this.state.passwordError}
-          id="password"
-          label="Senha"
-          type="password"
-          changed={this.inputChangedHandler}
-        />
-        <Button color="primary" inProgress={this.state.isValidating} clicked={this.buttonClickedHandler}>
-          Entrar
-        </Button>
+        <form onSubmit={this.handleSubmit}>
+          <Input
+            error={this.state.emailError}
+            id="email"
+            label="E-mail"
+            type="text"
+            changed={this.inputChangedHandler}
+          />
+          <Input
+            error={this.state.passwordError}
+            id="password"
+            label="Senha"
+            type="password"
+            changed={this.inputChangedHandler}
+          />
+          <Button color="primary" inProgress={this.state.isValidating}>
+            Entrar
+          </Button>
+        </form>
       </div>
     );
   }
