@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Title from '../components/Title';
 import Button from '../components/Button';
 
-import { getUsers } from '../data/user';
+import { getUsers, deleteUser } from '../data/user';
 
 import './ListUsers.css';
 
@@ -14,6 +14,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import EditIcon from "@material-ui/icons/Edit";
 import PersonIcon from "@material-ui/icons/Person";
+import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from "@material-ui/core/IconButton";
 
 class ListUsers extends Component {
@@ -47,6 +48,19 @@ class ListUsers extends Component {
 
   editClickedHandler = (id) => {
     this.props.history.push(`/user/edit/${id}`);
+  }
+
+  deleteClickedHandler = (id) => {
+    deleteUser(id)
+      .then(data => {
+        alert(`Usuário ${data.data.name} removido com sucesso.`);
+        this.setState({
+          users: this.state.users.filter(user => user.id != id),
+        });
+      })
+      .catch(error => {
+        alert(error.message);
+      })
   }
 
   nextButtonClickHandler = () => {
@@ -86,6 +100,9 @@ class ListUsers extends Component {
                       </IconButton>
                       <IconButton aria-label="Edit">
                         <EditIcon onClick={this.editClickedHandler.bind(this, user.id)}/>
+                      </IconButton>
+                      <IconButton aria-label="Edit">
+                        <DeleteIcon onClick={this.deleteClickedHandler.bind(this, user.id)} />
                       </IconButton>
                     </TableCell>
                   </TableRow>
