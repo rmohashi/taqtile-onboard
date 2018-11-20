@@ -61,13 +61,16 @@ class ListUsers extends Component {
   deleteClickedHandler = (id) => {
     deleteUser(id)
       .then(data => {
-        alert(`Usuário ${data.data.name} removido com sucesso` )
+        this.props.setModal(
+          'Sucesso',
+          `Usuário ${data.data.name} removido com sucesso`
+        )
         this.setState({
           users: this.state.users.filter(user => user.id !== id),
-        })
+        });
       })
       .catch(error => {
-        alert(error.message);
+        this.props.setModal('Erro', error.message)
       })
   }
 

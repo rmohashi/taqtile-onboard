@@ -65,11 +65,11 @@ class EditUser extends Component {
     if (this.checkValues()) {
       editUser(this.state.id, this.state.name, this.state.email, this.state.role)
         .then(data => {
-          alert(`Usuário ${data.data.id} editado com sucesso!`);
+          this.props.setModal('Sucesso', `Usuário ${data.data.name} editado com sucesso!`);
           this.props.history.push('/user/list-users');
         })
         .catch(error => {
-          alert(error.message);
+          this.props.setModal('Erro', error.message);
         });
     }
     this.setState({
